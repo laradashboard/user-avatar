@@ -6,17 +6,10 @@ class UserAvatarHooks
 {
     public function register(): void
     {
-        // ld_add_filter('admin_head', [$this, 'addScripts'], 10, 1);
         ld_add_filter('after_username_field', [$this, 'addAvatarField'], 10, 2);
         ld_add_filter('user_store_before_save', [$this, 'appendAvatarInUser'], 10, 2);
         ld_add_filter('user_update_before_save', [$this, 'appendAvatarInUser'], 10, 2);
-    }
-
-    public function addScripts($html = '')
-    {
-        ?>
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <?php
+        ld_add_filter('user_list_page_avatar_item', [$this, 'appendAvatarInUserList'], 10, 2);
     }
 
     public function addAvatarField($html = '', $user = null): string
@@ -46,5 +39,15 @@ class UserAvatarHooks
         }
 
         return $user;
+    }
+
+    public function appendAvatarInUserList(string $avatar, \App\Models\User $user): string
+    {
+        // Check if user avatar exist or not.
+        if ($user->avatar) {
+            $avatar = asset("storage/" . $user->avatar);
+        }
+
+        return $avatar;
     }
 }
