@@ -19,14 +19,15 @@ class UserAvatarHooks
         <div>
             <label for="avatar" class="mb-2 block">Avatar</label>
 
-            <?php if ($user && $user->avatar): ?>
-                <img src="<?php echo asset("storage/" . $user->avatar); ?>" width="50" alt="User Avatar" class="border rounded">
-            <?php endif; ?>
+            <?php if ($user && $user->avatar) { ?>
+                <img src="<?php echo asset('storage/'.$user->avatar); ?>" width="50" alt="User Avatar" class="border rounded">
+            <?php } ?>
         </div>
 
         <input type="file" class="" id="avatar" name="avatar" accept="image/*" />
         <?php
         $html .= ob_get_clean();
+
         return $html;
     }
 
@@ -45,7 +46,7 @@ class UserAvatarHooks
     {
         // Check if user avatar exist or not.
         if ($user->avatar) {
-            $avatar = asset("storage/" . $user->avatar);
+            $avatar = asset('storage/'.$user->avatar);
         }
 
         return $avatar;
