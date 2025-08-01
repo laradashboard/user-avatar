@@ -30,7 +30,7 @@ class UserAvatarServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
 
         // Register hooks.
-        (new UserAvatarHooks)->register();
+        (new UserAvatarHooks())->register();
     }
 
     /**
